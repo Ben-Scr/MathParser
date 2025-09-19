@@ -8,4 +8,8 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\UtilityCS\UtilityCS\UtilityCS.csproj" />
+  </ItemGroup>
+
 </Project>

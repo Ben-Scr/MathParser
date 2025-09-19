@@ -4,7 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Evaluator ev = Evaluator.Default();
+        Evaluator ev = Evaluator.Basic();
 
         int line = 0;
 

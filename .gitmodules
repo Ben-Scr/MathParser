@@ -1,0 +1,4 @@
+[submodule "Libraries/UtilityCS"]
+	path = Libraries/UtilityCS
+	url = https://github.com/rrainix/UtilityCS.git
+	branch = master

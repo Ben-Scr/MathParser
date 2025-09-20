@@ -30,9 +30,10 @@ namespace Parser
             return left;
         }
 
+
         // Note: Nud (Null Denotation) 
-        // Gets called when a new expression starts (no left part).
-        // Defines how the start token turns into a valid expression.
+        // Processes operators/expressions that start on the left
+        // Example: -2
         Expr Nud(Token tok)
         {
             return tok.Type switch
@@ -42,6 +43,7 @@ namespace Parser
                 TokenType.LParen => ParseGrouping(),
                 TokenType.Plus => new UnaryExpr(TokenType.Plus, ParseExpression(70)),
                 TokenType.Minus => new UnaryExpr(TokenType.Minus, ParseExpression(70)),
+                TokenType.Sqrt => new UnaryExpr(TokenType.Sqrt, ParseExpression(70)),
                 TokenType.String => new StringExpr(tok.Lexeme),
                 _ => throw new Exception($"Unexpected Token {tok.Type} at {tok.Pos}")
             };

@@ -1,18 +1,21 @@
 ﻿
 namespace Parser
 {
-    public enum TokenType { 
+    public enum TokenType
+    {
         Number,
         String,
         Ident,
-        Plus, 
+        Plus,
         Minus,
         Caret,
-        Star, 
-        Slash, 
+        Star,
+        Slash,
+        Modulo,
         LParen,
-        RParen, 
-        Comma, 
+        RParen,
+        Comma,
+        Sqrt,
         EOF
     }
 
@@ -90,10 +93,12 @@ namespace Parser
                     case '-': tokens.Add(new Token(TokenType.Minus, "-", i)); i++; break;
                     case '*': tokens.Add(new Token(TokenType.Star, "*", i)); i++; break;
                     case '/': tokens.Add(new Token(TokenType.Slash, "/", i)); i++; break;
+                    case '%': tokens.Add(new Token(TokenType.Modulo, "%", i)); i++; break;
                     case '^': tokens.Add(new Token(TokenType.Caret, "^", i)); i++; break;
                     case '(': tokens.Add(new Token(TokenType.LParen, "(", i)); i++; break;
                     case ')': tokens.Add(new Token(TokenType.RParen, ")", i)); i++; break;
                     case ',': tokens.Add(new Token(TokenType.Comma, ",", i)); i++; break;
+                    case '√': tokens.Add(new Token(TokenType.Sqrt, "√", i)); i++; break;
                     default: throw new Exception($"Unexpected character '{c}' at string index {i}");
                 }
             }

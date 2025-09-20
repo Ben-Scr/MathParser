@@ -29,8 +29,8 @@ namespace Parser
 
         public void DefineDefaultFunctions()
         {
-            Define("repos", a => Value.From("https://github.com/rrainix/Parser"));
-            Define("app", a => Value.From(Path.GetFullPath("Parser.exe")));
+            SetVar("repos", Value.From("https://github.com/rrainix/Parser"));
+            SetVar("app", Value.From(Path.GetFullPath("Parser.exe")));
             Define("run", a =>
             {
                 var psi = new ProcessStartInfo
@@ -59,9 +59,9 @@ namespace Parser
                 if (double.TryParse(defineValue, out double result))
                 {
                     if (result % 1 == 0)
-                        Define(defineName, a => Value.From((int)result));
+                        SetVar(defineName, Value.From((int)result));
                     else
-                        Define(defineName, b => Value.From(result));
+                        SetVar(defineName, Value.From(result));
 
                     return Value.From($"Succesfully defined variable {a[0].ToString()} with value {result}");
                 }

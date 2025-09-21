@@ -118,6 +118,7 @@ namespace Parser
             Define("/", a => Value.From(a[0].ToDouble() / a[1].ToDouble()));
             Define("^", a => Value.From(Math.Pow(a[0].ToDouble(), a[1].ToDouble())));
 
+            Define("√", a => Value.From(Math.Sqrt(a[0].ToDouble())));
             Define("neg", a => Value.From(-a[0].ToDouble()));
             Define("pos", a => Value.From(+a[0].ToDouble()));
         }
@@ -165,6 +166,7 @@ namespace Parser
 
             UnaryExpr u when u.Op == TokenType.Minus => Invoke("neg", EvalToValue(u.Right)),
             UnaryExpr u when u.Op == TokenType.Plus => Invoke("pos", EvalToValue(u.Right)),
+            UnaryExpr u when u.Op == TokenType.Sqrt => Invoke("√", EvalToValue(u.Right)),
 
             BinaryExpr b when b.Op == TokenType.Plus => Invoke("+", EvalToValue(b.Left), EvalToValue(b.Right)),
             BinaryExpr b when b.Op == TokenType.Minus => Invoke("-", EvalToValue(b.Left), EvalToValue(b.Right)),

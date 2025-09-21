@@ -1,0 +1,1 @@
+﻿Console.WriteLine(Parser.ParserRuntime.Run("1 * 2 + 3 * 5", Parser.Evaluator.Calculator()));

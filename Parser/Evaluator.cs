@@ -82,6 +82,7 @@ namespace Parser
 
         public void DefineMathematicalFunctions()
         {
+            SetVar("π", Value.From(Math.PI));
             Define("max", a => Value.From(MathCS.Max(MiniLinq.As<Value, float>(a, value => value.ToFloat()))));
             Define("min", a => Value.From(MathCS.Min(MiniLinq.As<Value, float>(a, value => value.ToFloat()))));
             Define("pow", a => Value.From(Math.Pow(a[0].ToDouble(), a[1].ToDouble())));

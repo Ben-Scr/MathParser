@@ -31,25 +31,20 @@ namespace Parser
         {
             SetVar("repos", Value.From("https://github.com/rrainix/Parser"));
             SetVar("app", Value.From(Path.GetFullPath("Parser.exe")));
+
             Define("run", a =>
             {
-                var psi = new ProcessStartInfo
-                {
-                    FileName = a[0].ToString(),
-                    UseShellExecute = true // wichtig für .NET 5+ bei "normalem" EXE-Start
-                };
-                Process.Start(psi);
+                CmdHelper.Run(a[0].ToString());
                 return Value.Null;
             });
             Define("shutdown", a =>
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "shutdown",
-                    Arguments = $"/s /t {(a.Length > 0 ? a[0].ToInt() : "15")}",
-                    UseShellExecute = true
-                });
-                return Value.Null;
+                if (a.Length > 0)
+                    CmdHelper.Shutdown(a[0].ToInt());
+                else
+                    CmdHelper.Shutdown();
+
+                return Value.From("Shutdown intialized");
             });
             Define("define", a =>
             {
@@ -78,12 +73,14 @@ namespace Parser
                 return Value.From(funcsInfo);
             });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
+            Define("toHex", a => Value.From(TextUtils.ToHex(MiniLinq.Select<Value, int>(a, value => value.ToInt()))));
         }
 
         public void DefineMathematicalFunctions()
         {
             SetVar("π", Value.From(Math.PI));
             SetVar("e", Value.From(Math.E));
+
             Define("max", a => Value.From(MathCS.Max(MiniLinq.Select(a, value => value.ToFloat()))));
             Define("min", a => Value.From(MathCS.Min(MiniLinq.Select(a, value => value.ToFloat()))));
             Define("pow", a => Value.From(Math.Pow(a[0].ToDouble(), a[1].ToDouble())));
@@ -151,7 +148,6 @@ namespace Parser
             Define("fileSize", a => Value.From(Filemanager.GetFileSize(a[0].ToString(), MemoryUnit.KiloByte) + " kb"));
             Define("error", a => { Logger.Error("", a[0].ToString()); return Value.Null; });
             Define("save", a => { SaveManager.Save<string>(a[0].ToString(), a[1].ToString()); return Value.Null; });
-            Define("toHex", a => Value.From(TextUtils.ToHex(MiniLinq.Select<Value, int>(a, value => value.ToInt()))));
         }
 
         public static Evaluator Basic()

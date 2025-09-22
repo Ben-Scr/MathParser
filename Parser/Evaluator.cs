@@ -84,8 +84,8 @@ namespace Parser
         {
             SetVar("π", Value.From(Math.PI));
             SetVar("e", Value.From(Math.E));
-            Define("max", a => Value.From(MathCS.Max(MiniLinq.As(a, value => value.ToFloat()))));
-            Define("min", a => Value.From(MathCS.Min(MiniLinq.As(a, value => value.ToFloat()))));
+            Define("max", a => Value.From(MathCS.Max(MiniLinq.Select(a, value => value.ToFloat()))));
+            Define("min", a => Value.From(MathCS.Min(MiniLinq.Select(a, value => value.ToFloat()))));
             Define("pow", a => Value.From(Math.Pow(a[0].ToDouble(), a[1].ToDouble())));
             Define("sin", a => Value.From(Math.Sin(a[0].ToDouble())));
             Define("cos", a => Value.From(Math.Cos(a[0].ToDouble())));
@@ -151,7 +151,7 @@ namespace Parser
             Define("fileSize", a => Value.From(Filemanager.GetFileSize(a[0].ToString(), MemoryUnit.KiloByte) + " kb"));
             Define("error", a => { Logger.Error("", a[0].ToString()); return Value.Null; });
             Define("save", a => { SaveManager.Save<string>(a[0].ToString(), a[1].ToString()); return Value.Null; });
-            Define("toHex", a => Value.From(TextUtils.ToHex(MiniLinq.As<Value, int>(a, value => value.ToInt()))));
+            Define("toHex", a => Value.From(TextUtils.ToHex(MiniLinq.Select<Value, int>(a, value => value.ToInt()))));
         }
 
         public static Evaluator Basic()

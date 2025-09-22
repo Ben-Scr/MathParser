@@ -83,11 +83,14 @@ namespace Parser
         public void DefineMathematicalFunctions()
         {
             SetVar("π", Value.From(Math.PI));
-            Define("max", a => Value.From(MathCS.Max(MiniLinq.As<Value, float>(a, value => value.ToFloat()))));
-            Define("min", a => Value.From(MathCS.Min(MiniLinq.As<Value, float>(a, value => value.ToFloat()))));
+            SetVar("e", Value.From(Math.E));
+            Define("max", a => Value.From(MathCS.Max(MiniLinq.As(a, value => value.ToFloat()))));
+            Define("min", a => Value.From(MathCS.Min(MiniLinq.As(a, value => value.ToFloat()))));
             Define("pow", a => Value.From(Math.Pow(a[0].ToDouble(), a[1].ToDouble())));
             Define("sin", a => Value.From(Math.Sin(a[0].ToDouble())));
             Define("cos", a => Value.From(Math.Cos(a[0].ToDouble())));
+            Define("tan", a => Value.From(Math.Tan(a[0].ToDouble())));
+            Define("log", a => Value.From(Math.Log(a[0].ToDouble())));
             Define("abs", a => Value.From(Math.Abs(a[0].ToDouble())));
             Define("atan", a => Value.From(Math.Atan(a[0].ToDouble())));
             Define("atan2", a => Value.From(Math.Atan2(a[0].ToDouble(), a[1].ToDouble())));

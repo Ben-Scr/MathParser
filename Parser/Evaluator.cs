@@ -73,6 +73,7 @@ namespace Parser
                 return Value.From(funcsInfo);
             });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
+            Define("exit", a => { Environment.Exit(0); return Value.Null; });
             Define("toHex", a => Value.From(TextUtils.ToHex(MiniLinq.Select<Value, int>(a, value => value.ToInt()))));
         }
 

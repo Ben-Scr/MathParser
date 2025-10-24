@@ -71,7 +71,7 @@ namespace Parser
                 {
                     int start = ++i;
                     while (i < source.Length && source[i] != '"') i++;
-                    if (i >= source.Length) throw new Exception($"Unterminated string at {start - 1}");
+                    if (i >= source.Length) throw new Exception($"Unterminated string at \"{start - 1}\"");
                     var lex = source.Substring(start, i - start);
                     i++; // closing "
                     tokens.Add(new Token(TokenType.String, lex, start - 1));
@@ -99,7 +99,7 @@ namespace Parser
                     case ')': tokens.Add(new Token(TokenType.RParen, ")", i)); i++; break;
                     case ',': tokens.Add(new Token(TokenType.Comma, ",", i)); i++; break;
                     case '√': tokens.Add(new Token(TokenType.Sqrt, "√", i)); i++; break;
-                    default: throw new Exception($"Unexpected character '{c}' at string index {i}");
+                    default: throw new Exception($"Unexpected character \"{c}\" at string index \"{i}\"");
                 }
             }
             tokens.Add(new Token(TokenType.EOF, "", source.Length));

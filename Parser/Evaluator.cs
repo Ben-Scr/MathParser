@@ -30,7 +30,7 @@ namespace Parser
         public void DefineDefaultFunctions()
         {
             SetVar("repos", new Value("https://github.com/rrainix/Parser"));
-            SetVar("app", new Value(Path.GetFullPath("Parser.exe")));
+            SetVar("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
 
             Define("run", a =>
             {
@@ -160,7 +160,7 @@ namespace Parser
         {
             NumberExpr n => new Value(n.Value),
             StringExpr s => new Value(s.Value),
-            VarExpr v => vars.TryGetValue(v.Name, out var vv) ? vv : throw new Exception($"Unknown variable {v.Name}"),
+            VarExpr v => vars.TryGetValue(v.Name, out var vv) ? vv : throw new Exception($"Unknown variable \"{v.Name}\""),
 
             UnaryExpr u when u.Op == TokenType.Minus => Invoke("neg", EvalToValue(u.Right)),
             UnaryExpr u when u.Op == TokenType.Plus => Invoke("pos", EvalToValue(u.Right)),
@@ -180,7 +180,7 @@ namespace Parser
         {
             if (!funcs.TryGetValue(name, out var f))
             {
-                throw new Exception($"Unknown function {name}({string.Join(", ", args.Select(a => a))})");
+                throw new Exception($"Unknown function \"{name}({string.Join(", ", args.Select(a => a))})\"");
             }
 
             return f(args);

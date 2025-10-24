@@ -15,7 +15,7 @@ namespace Parser
         Token Peek() => tokens[pos];
         Token Next() => tokens[pos++];
         bool Match(TokenType tt) { if (Peek().Type == tt) { pos++; return true; } return false; }
-        Token Expect(TokenType tt) { var x = Next(); if (x.Type != tt) throw new Exception($"Expected {tt} at {x.Pos}"); return x; }
+        Token Expect(TokenType tt) { var x = Next(); if (x.Type != tt) throw new Exception($"Expected \"{tt}\" at \"{x.Pos}\""); return x; }
 
         // Note: rbp (right binding power) directs the calculation order/priority.
         public Expr ParseExpression(int rbp = 0)
@@ -45,7 +45,7 @@ namespace Parser
                 TokenType.Minus => new UnaryExpr(TokenType.Minus, ParseExpression(70)),
                 TokenType.Sqrt => new UnaryExpr(TokenType.Sqrt, ParseExpression(70)),
                 TokenType.String => new StringExpr(tok.Lexeme),
-                _ => throw new Exception($"Unexpected Token {tok.Type} at {tok.Pos}")
+                _ => throw new Exception($"Unexpected Token \"{tok.Type}\" at \"{tok.Pos}\"")
             };
         }
 
@@ -117,7 +117,7 @@ namespace Parser
                 case TokenType.Caret:
                     return new BinaryExpr(TokenType.Caret, left, ParseExpression(29));
                 default:
-                    throw new Exception($"Unexpected Operator {tok.Type} at {tok.Pos}");
+                    throw new Exception($"Unexpected Operator \"{tok.Type}\" at \"{tok.Pos}\"");
             }
         }
     }
@@ -136,7 +136,7 @@ namespace Parser
             }
             catch(Exception e)
             {
-                return new Value("Error " + e.Message);
+                return new Value("Error: " + e.Message);
             }
         }
     }

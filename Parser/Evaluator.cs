@@ -9,7 +9,7 @@ namespace Parser
         private readonly Dictionary<string, Func<Value[], Value>> funcs = new();
         private readonly Dictionary<string, Value> vars = new();
 
-        public void Define(string name, Func<Value[], Value> f) => funcs[name] = f;
+        public void Define(string name, Func<Value[], Value> f) => funcs[name] = f; 
         public void SetVar(string name, Value value) => vars[name] = value;
 
         private Evaluator()
@@ -66,8 +66,7 @@ namespace Parser
                     return new Value("Succesfully defined function " + a[0].ToString());
                 }
             });
-            Define("functions", a =>
-            {
+            Define("functions", a=> {
                 string funcsInfo = string.Empty;
                 foreach (string name in funcs.Keys) funcsInfo += name + ": " + funcs[name].Method.ToString() + '\n';
                 return new Value(funcsInfo);
@@ -80,6 +79,7 @@ namespace Parser
         public void DefineMathematicalFunctions()
         {
             SetVar("π", new Value(Math.PI));
+            SetVar("pi", new Value(Math.PI));
             SetVar("e", new Value(Math.E));
 
             Define("max", a => new Value(MathCS.Max(MiniLinq.Select(a, value => value.To<float>()))));

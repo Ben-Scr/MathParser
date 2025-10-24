@@ -8,6 +8,8 @@ namespace ParserPlayground
         {
             Console.WriteLine("-- Calculator --");
             Evaluator evaluator = Evaluator.Calculator();
+            evaluator.DefineBasicFunctions();
+            evaluator.DefineTimeFunctions();
 
             Console.WriteLine("Enter your calculation:");
             while (true)

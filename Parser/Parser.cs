@@ -132,11 +132,11 @@ namespace Parser
                 Parser parser = new Parser(tokens);
                 Expr expr = parser.ParseExpression();
                 Value result = ev.EvalToValue(expr);
-                return result.Type == Value.Kind.Null ? (Value?)null : result;
+                return result;
             }
             catch(Exception e)
             {
-                return   Value.From("Error " + e.Message);
+                return new Value("Error " + e.Message);
             }
         }
     }

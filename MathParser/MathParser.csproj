@@ -26,9 +26,13 @@
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\Submodules\UtilityCS\UtilityCS\UtilityCS.csproj" />
 		<None Include="../README.md" Pack="true" PackagePath="\" />
 		<None Include="../LICENSE.txt" Pack="true" PackagePath="\" />
 		<None Include="icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Submodules\UtilityCS\UtilityCS\UtilityCS.csproj" />
 	</ItemGroup>
 </Project>

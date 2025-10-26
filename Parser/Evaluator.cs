@@ -73,9 +73,7 @@ namespace Parser
             });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
             Define("exit", a => { Environment.Exit(0); return Value.Null; });
-            Define("toHex", a => new Value(TextUtils.ToHex(MiniLinq.Select<Value, int>(a, value => value.To<int>()))));
         }
-
         public void DefineMathematicalFunctions()
         {
             SetVar("π", new Value(Math.PI));
@@ -94,8 +92,7 @@ namespace Parser
             Define("atan2", a => new Value(Math.Atan2(a[0].To<double>(), a[1].To<double>())));
             Define("clamp", a => new Value(Math.Clamp(a[0].To<double>(), a[1].To<double>(), a[2].To<double>())));
             Define("sqrt", a => new Value(Math.Sqrt(a[0].To<double>())));
-
-
+            Define("toHex", a => new Value(TextUtils.ToHex(MiniLinq.Select(a, value => value.To<int>()))));
             Define("random", a =>
             {
                 if (a.Length == 2)
@@ -146,14 +143,6 @@ namespace Parser
             Define("fileSize", a => new Value(Filemanager.GetFileSize(a[0].ToString(), MemoryUnit.KiloByte) + " kb"));
             Define("error", a => { Logger.Error("", a[0].ToString()); return Value.Null; });
             Define("save", a => { SaveManager.Save<string>(a[0].ToString(), a[1].ToString()); return Value.Null; });
-        }
-
-        public static Evaluator Basic()
-        {
-            Evaluator ev = new Evaluator();
-            ev.DefineBasicFunctions();
-            ev.DefineTimeFunctions();
-            return ev;
         }
 
         public Value EvalToValue(Expr e) => e switch

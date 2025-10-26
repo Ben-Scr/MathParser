@@ -10,7 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Parser\Parser.csproj" />
+		<ProjectReference Include="..\MathParser\MathParser.csproj" />
 	</ItemGroup>
 
 </Project>

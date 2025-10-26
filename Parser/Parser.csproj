@@ -1,17 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
-		<OutputType>Library</OutputType>
+		<PackageId>MathParserCS</PackageId>
+		<Version>1.0.0</Version>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<Authors>Ben Schneider</Authors>
 		<Company>Ben Schneider</Company>
-		<Product>Parser</Product>
+		<Description>A Mathemactical C# Parser that can parse string input such as "20 + 100 / 2 * 4^2" to 820</Description>
+
+		<PackageProjectUrl>https://github.com/Ben-Scr/MathParserCS</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Ben-Scr/MathParserCS</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+
+		<PackageTags>
+			Parser;
+			Math;
+			Lexer;
+			Tokenizer;
+		</PackageTags>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Submodules\UtilityCS\UtilityCS\UtilityCS.csproj" />
-	</ItemGroup>
 
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\" />
+		<None Include="../LICENSE.txt" Pack="true" PackagePath="\" />
+		<None Include="icon.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
 </Project>

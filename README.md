@@ -4,7 +4,7 @@ A Mathemactical C# `Net 9.0` Parser
 ## Features
 - Parsing input such as `"1+5"` -> `6`
 - Using predefined variables like `pi` or `e`
-- Using and calculating with predefined functions such as `sin()`, `cos()`, `sqrt()`, ...
+- Using predefined functions such as `sin()`, `cos()`, `sqrt()`, ...
 
 ## How to use
 ```csharp

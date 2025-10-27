@@ -8,7 +8,7 @@ A Mathemactical C# `Net 9.0` Parser
 
 ## How to use
 ```csharp
-using BenScr.MathParser;
+using BenScr.Math.Parser;
 ```
 
 - Option 1

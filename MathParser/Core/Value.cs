@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-
+﻿
 namespace BenScr.MathParser
 {
+    // Utility Wrapper for the Object
     public readonly struct Value
     {
         public object Object { get; }

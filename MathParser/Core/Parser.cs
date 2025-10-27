@@ -124,7 +124,7 @@ namespace BenScr.MathParser
 
     public static class ParserRuntime
     {
-        public static Value? Run(string src, Evaluator ev)
+        public static Value Run(string src, Evaluator ev)
         {
             try
             {

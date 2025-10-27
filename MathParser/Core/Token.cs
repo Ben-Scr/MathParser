@@ -1,5 +1,5 @@
 ﻿
-namespace BenScr.MathParser
+namespace BenScr.Math.Parser
 {
     public enum TokenType
     {

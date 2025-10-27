@@ -1,5 +1,5 @@
 ﻿
-namespace BenScr.MathParser
+namespace BenScr.Math.Parser
 {
     // Utility Wrapper for the Object
     public readonly struct Value

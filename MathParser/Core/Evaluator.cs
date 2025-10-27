@@ -1,5 +1,5 @@
 ﻿
-namespace BenScr.MathParser
+namespace BenScr.Math.Parser
 {
     public sealed class Evaluator
     {
@@ -32,22 +32,22 @@ namespace BenScr.MathParser
 
         public void DefineMathematicalFunctions()
         {
-            SetVar("π", new Value(Math.PI));
-            SetVar("pi", new Value(Math.PI));
-            SetVar("e", new Value(Math.E));
+            SetVar("π", new Value(System.Math.PI));
+            SetVar("pi", new Value(System.Math.PI));
+            SetVar("e", new Value(System.Math.E));
 
             Define("max", a => new Value(MathHelper.Max(a.Select(value => value.To<float>()).ToArray())));
             Define("min", a => new Value(MathHelper.Min(a.Select(value => value.To<float>()).ToArray())));
-            Define("pow", a => new Value(Math.Pow(a[0].To<double>(), a[1].To<double>())));
-            Define("sin", a => new Value(Math.Sin(a[0].To<double>())));
-            Define("cos", a => new Value(Math.Cos(a[0].To<double>())));
-            Define("tan", a => new Value(Math.Tan(a[0].To<double>())));
-            Define("log", a => new Value(Math.Log(a[0].To<double>())));
-            Define("abs", a => new Value(Math.Abs(a[0].To<double>())));
-            Define("atan", a => new Value(Math.Atan(a[0].To<double>())));
-            Define("atan2", a => new Value(Math.Atan2(a[0].To<double>(), a[1].To<double>())));
-            Define("clamp", a => new Value(Math.Clamp(a[0].To<double>(), a[1].To<double>(), a[2].To<double>())));
-            Define("sqrt", a => new Value(Math.Sqrt(a[0].To<double>())));
+            Define("pow", a => new Value(System.Math.Pow(a[0].To<double>(), a[1].To<double>())));
+            Define("sin", a => new Value(System.Math.Sin(a[0].To<double>())));
+            Define("cos", a => new Value(System.Math.Cos(a[0].To<double>())));
+            Define("tan", a => new Value(System.Math.Tan(a[0].To<double>())));
+            Define("log", a => new Value(System.Math.Log(a[0].To<double>())));
+            Define("abs", a => new Value(System.Math.Abs(a[0].To<double>())));
+            Define("atan", a => new Value(System.Math.Atan(a[0].To<double>())));
+            Define("atan2", a => new Value(System.Math.Atan2(a[0].To<double>(), a[1].To<double>())));
+            Define("clamp", a => new Value(System.Math.Clamp(a[0].To<double>(), a[1].To<double>(), a[2].To<double>())));
+            Define("sqrt", a => new Value(System.Math.Sqrt(a[0].To<double>())));
         }
         public void DefineArithmetikOperations()
         {
@@ -55,9 +55,9 @@ namespace BenScr.MathParser
             Define("-", a => new Value(a[0].To<double>() - a[1].To<double>()));
             Define("*", a => new Value(a[0].To<double>() * a[1].To<double>()));
             Define("/", a => new Value(a[0].To<double>() / a[1].To<double>()));
-            Define("^", a => new Value(Math.Pow(a[0].To<double>(), a[1].To<double>())));
+            Define("^", a => new Value(System.Math.Pow(a[0].To<double>(), a[1].To<double>())));
 
-            Define("√", a => new Value(Math.Sqrt(a[0].To<double>())));
+            Define("√", a => new Value(System.Math.Sqrt(a[0].To<double>())));
             Define("neg", a => new Value(-a[0].To<double>()));
             Define("pos", a => new Value(+a[0].To<double>()));
         }

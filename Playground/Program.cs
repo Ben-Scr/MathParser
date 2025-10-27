@@ -1,4 +1,4 @@
-﻿using BenScr.MathParser;
+﻿using BenScr.Math.Parser;
 
 public static class Program
 {

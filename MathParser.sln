@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathParser", "MathParser\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserPlayground", "ParserPlayground\ParserPlayground.csproj", "{7A5EC2BA-660B-4BC2-AFDA-8212D4391B9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityCS", "Submodules\UtilityCS\UtilityCS\UtilityCS.csproj", "{746112FA-6846-926E-4029-C9244390D513}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{7A5EC2BA-660B-4BC2-AFDA-8212D4391B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A5EC2BA-660B-4BC2-AFDA-8212D4391B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A5EC2BA-660B-4BC2-AFDA-8212D4391B9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{746112FA-6846-926E-4029-C9244390D513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{746112FA-6846-926E-4029-C9244390D513}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{746112FA-6846-926E-4029-C9244390D513}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{746112FA-6846-926E-4029-C9244390D513}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

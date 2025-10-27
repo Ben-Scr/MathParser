@@ -1,8 +1,5 @@
 ﻿
-using System.Diagnostics;
-using UtilityCS;
-
-namespace Parser
+namespace BenScr.MathParser
 {
     public sealed class Evaluator
     {
@@ -26,51 +23,10 @@ namespace Parser
 
             return ev;
         }
-
         public void DefineDefaultFunctions()
         {
             SetVar("repos", new Value("https://github.com/rrainix/Parser"));
             SetVar("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
-
-            Define("run", a =>
-            {
-                CmdHelper.Run(a[0].ToString());
-                return Value.Null;
-            });
-            Define("shutdown", a =>
-            {
-                if (a.Length > 0)
-                    CmdHelper.Shutdown(a[0].To<int>());
-                else
-                    CmdHelper.Shutdown();
-
-                return new Value("Shutdown intialized");
-            });
-            Define("define", a =>
-            {
-                string defineName = a[0].ToString();
-                string defineValue = a[1].ToString();
-
-                if (double.TryParse(defineValue, out double result))
-                {
-                    if (result % 1 == 0)
-                        SetVar(defineName, new Value((int)result));
-                    else
-                        SetVar(defineName, new Value(result));
-
-                    return new Value($"Succesfully defined variable {a[0].ToString()} with value {result}");
-                }
-                else
-                {
-                    Define(defineName, b => new Value(defineValue));
-                    return new Value("Succesfully defined function " + a[0].ToString());
-                }
-            });
-            Define("functions", a=> {
-                string funcsInfo = string.Empty;
-                foreach (string name in funcs.Keys) funcsInfo += name + ": " + funcs[name].Method.ToString() + '\n';
-                return new Value(funcsInfo);
-            });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
             Define("exit", a => { Environment.Exit(0); return Value.Null; });
         }
@@ -80,8 +36,8 @@ namespace Parser
             SetVar("pi", new Value(Math.PI));
             SetVar("e", new Value(Math.E));
 
-            Define("max", a => new Value(MathCS.Max(MiniLinq.Select(a, value => value.To<float>()))));
-            Define("min", a => new Value(MathCS.Min(MiniLinq.Select(a, value => value.To<float>()))));
+            Define("max", a => new Value(MathHelper.Max(a.Select(value => value.To<float>()).ToArray())));
+            Define("min", a => new Value(MathHelper.Min(a.Select(value => value.To<float>()).ToArray())));
             Define("pow", a => new Value(Math.Pow(a[0].To<double>(), a[1].To<double>())));
             Define("sin", a => new Value(Math.Sin(a[0].To<double>())));
             Define("cos", a => new Value(Math.Cos(a[0].To<double>())));
@@ -92,19 +48,6 @@ namespace Parser
             Define("atan2", a => new Value(Math.Atan2(a[0].To<double>(), a[1].To<double>())));
             Define("clamp", a => new Value(Math.Clamp(a[0].To<double>(), a[1].To<double>(), a[2].To<double>())));
             Define("sqrt", a => new Value(Math.Sqrt(a[0].To<double>())));
-            Define("toHex", a => new Value(TextUtils.ToHex(MiniLinq.Select(a, value => value.To<int>()))));
-            Define("random", a =>
-            {
-                if (a.Length == 2)
-                {
-                    double min = a[0].To<double>(), max = a[1].To<double>();
-                    bool ints = (min % 1 == 0) && (max % 1 == 0) && min >= int.MinValue && max <= int.MaxValue;
-
-                    if (ints) return new Value(RandomHandler.Range((int)min, (int)max));
-                    return new Value(min + RandomHandler.Range(min, max));
-                }
-                return new Value(RandomHandler.NextDouble());
-            });
         }
         public void DefineArithmetikOperations()
         {
@@ -118,34 +61,7 @@ namespace Parser
             Define("neg", a => new Value(-a[0].To<double>()));
             Define("pos", a => new Value(+a[0].To<double>()));
         }
-        public void DefineTimeFunctions()
-        {
-            Define("time", a => new Value(DateTime.Now.TimeOfDay.ToString()));
-            Define("date", a => new Value(DateTime.Now.ToShortDateString()));
-            Define("year", a => new Value(DateTime.Now.Year));
-            Define("day", a => new Value(DateTime.Now.Day));
-            Define("month", a => new Value(DateTime.Now.Month.ToString()));
-
-            Define("ticks", a => new Value(DateTime.Now.Ticks));
-            Define("second", a => new Value(DateTime.Now.Second));
-            Define("hour", a => new Value(DateTime.Now.Hour));
-            Define("minute", a => new Value(DateTime.Now.Minute));
-        }
-        public void DefineBasicFunctions()
-        {
-            Define("writeLine", a => { Console.WriteLine(string.Join(" ", a.Select(x => x.ToString()))); return Value.Null; });
-            Define("calculate", a =>
-            {
-                var src = a[0].ToString();
-                var inner = ParserRuntime.Run(src, this);
-                return inner ?? Value.Null;
-            });
-            Define("fileSize", a => new Value(Filemanager.GetFileSize(a[0].ToString(), MemoryUnit.KiloByte) + " kb"));
-            Define("error", a => { Logger.Error("", a[0].ToString()); return Value.Null; });
-            Define("save", a => { SaveManager.Save<string>(a[0].ToString(), a[1].ToString()); return Value.Null; });
-        }
-
-        public Value EvalToValue(Expr e) => e switch
+        internal Value EvalToValue(Expr e) => e switch
         {
             NumberExpr n => new Value(n.Value),
             StringExpr s => new Value(s.Value),
@@ -164,7 +80,6 @@ namespace Parser
             CallExpr c => Invoke(c.CallName, c.Args.Select(EvalToValue).ToArray()),
             _ => throw new Exception("Not evaluable")
         };
-
         private Value Invoke(string name, params Value[] args)
         {
             if (!funcs.TryGetValue(name, out var f))

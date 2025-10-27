@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Parser
+namespace BenScr.MathParser
 {
     public class Parser
     {

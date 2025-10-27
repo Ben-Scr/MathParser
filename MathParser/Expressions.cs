@@ -1,5 +1,5 @@
 ﻿
-namespace Parser
+namespace BenScr.MathParser
 {
     public abstract record Expr;
     public record NumberExpr(double Value) : Expr;

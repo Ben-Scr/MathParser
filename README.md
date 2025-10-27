@@ -1,5 +1,5 @@
 # Parser
-A Configureable Mathemactical C# `Net 9.0` Parser/Calculator
+A Configureable Mathemactical C# `Net 9.0` Parser
 
 ## Features
 - Parsing input such as `"1+5"` -> `6`

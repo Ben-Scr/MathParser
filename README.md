@@ -1,18 +1,33 @@
 # Parser
-A Mathemactical C# Parser
+A Configureable Mathemactical C# `Net 9.0` Parser/Calculator
 
-## Usage
-- Parsing input such as "1+5" -> 6
-- Using predefined variables like pi or e
-- Using predefined functions such as sin(), cos(), sqrt(), ...
+## Features
+- Parsing input such as `"1+5"` -> `6`
+- Using predefined variables like `pi` or `e`
+- Using predefined functions such as `sin()`, `cos()`, `sqrt()`, ...
 
 ## How to use
 ```csharp
-Evaluator evaluator = Evaluator.Calculator();
-string input = Console.ReadLine();
-Value? value = ParserRuntime.Run(input, evaluator);
-
-// Possible Conversions
-int iValue = value.To<int>();
-string  sValue = value.To<string>();
+using BenScr.MathParser;
 ```
+
+- Option 1
+```csharp
+string result = Calculator.Evaluate<string>("20 + 100 / 2 * 4^2");
+Console.WriteLine(result); // Output: 820
+```
+
+- Option 2 (configurable)
+```csharp
+Evaluator evaluator = new Evaluator();
+
+// Defines +, -, /, *, ^, ...
+evaluator.DefineArithmetikOperations();
+
+// Defines sin(), cos(), sqrt(), ...
+evaluator.DefineMathematicalFunctions();
+
+Value value = ParserRuntime.Run("20 + 100 / 2 * 4^2", evaluator);
+Console.WriteLine(value); // Output: 820
+```
+

@@ -1,4 +1,4 @@
-# Parser
+# Math Parser
 A Mathemactical C# `Net 9.0` Parser
 
 ## Features

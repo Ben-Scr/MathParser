@@ -6,4 +6,13 @@ A Mathemactical C# Parser
 - Using predefined variables like pi or e
 - Using predefined functions such as sin(), cos(), sqrt(), ...
 
-## Syntax
+## How to use
+```csharp
+Evaluator evaluator = Evaluator.Calculator();
+string input = Console.ReadLine();
+Value? value = ParserRuntime.Run(input, evaluator);
+
+// Possible Conversions
+int iValue = value.To<int>();
+string  sValue = value.To<string>();
+```

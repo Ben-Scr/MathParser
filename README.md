@@ -17,7 +17,7 @@ string result = Calculator.Evaluate<string>("20 + 100 / 2 * 4^2");
 Console.WriteLine(result); // Output: 820
 ```
 
-- Option 2 (configurable evaluator)
+- Option 2 (configurable)
 ```csharp
 Evaluator evaluator = new Evaluator();
 

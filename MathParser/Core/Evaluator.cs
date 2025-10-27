@@ -9,9 +9,9 @@ namespace BenScr.MathParser
         public void Define(string name, Func<Value[], Value> f) => funcs[name] = f; 
         public void SetVar(string name, Value value) => vars[name] = value;
 
-        private Evaluator()
+        public Evaluator()
         {
-            DefineDefaultFunctions();
+
         }
 
         public static Evaluator Calculator()
@@ -25,11 +25,11 @@ namespace BenScr.MathParser
         }
         public void DefineDefaultFunctions()
         {
-            SetVar("repos", new Value("https://github.com/rrainix/Parser"));
             SetVar("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
             Define("exit", a => { Environment.Exit(0); return Value.Null; });
         }
+
         public void DefineMathematicalFunctions()
         {
             SetVar("π", new Value(Math.PI));

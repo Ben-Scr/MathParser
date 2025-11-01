@@ -6,11 +6,19 @@ public static class Program
     {
         Console.WriteLine("-- Calculator --");
         Console.WriteLine("Enter your calculation:");
+
+        int resultLength = 30;
+
         while (true)
         {
-            Console.WriteLine("--------------------------------------");
+            for (int i = 0; i < resultLength; i++)
+                Console.Write("-");
+            Console.WriteLine();
             string input = Console.ReadLine();
-            Console.WriteLine(input + " = " + Calculator.Evaluate(input));
+            string result = input + " = " + Calculator.Evaluate(input);
+            resultLength = result.Length;
+            Console.WriteLine(result);
+            Console.WriteLine();
         }
     }
 }

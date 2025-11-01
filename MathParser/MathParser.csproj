@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<PackageId>MathParserCS</PackageId>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -10,7 +10,7 @@
 		<Description>A Mathemactical C# Net 9.0 Parser, parsing input such as "20 + 100 / 2 * 4^2" -> 820.</Description>
 
 		<PackageProjectUrl>https://github.com/Ben-Scr/MathParser</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/Ben-Scr/MathParser</RepositoryUrl>
+		<RepositoryUrl>https://ko-fi.com/benscr</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 
 		<PackageTags>

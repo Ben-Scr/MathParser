@@ -32,7 +32,7 @@ Console.WriteLine(value); // Output: 820
 ```
 
 ## Example Project
-An example Project using this Parser is [`Advanced Calculator`](https://github.com/Ben-Scr/AdvancedCalculator)
+An example Project using this Parser is [`AdvancedCalculator`](https://github.com/Ben-Scr/AdvancedCalculator)
 
 ## Support
 [![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/benscr)

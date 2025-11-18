@@ -3,7 +3,6 @@ namespace BenScr.Math.Parser
 {
     internal class MathHelper
     {
-
         public static int Max(params int[] values)
         {
             int max = int.MinValue;

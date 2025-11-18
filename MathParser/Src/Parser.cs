@@ -2,7 +2,7 @@
 
 namespace BenScr.Math.Parser
 {
-    public class Parser
+    public sealed class Parser
     {
         private readonly List<Token> tokens;
         private int pos;

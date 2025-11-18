@@ -14,11 +14,13 @@
 		<RepositoryType>git</RepositoryType>
 
 		<PackageTags>
+			Math;
 			Parser;
 			Calculator;
 			Lexer;
 			Tokenizer;
 		</PackageTags>
+		
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>

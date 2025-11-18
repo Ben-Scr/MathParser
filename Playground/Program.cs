@@ -10,9 +10,10 @@ public static class Program
 
         while (true)
         {
-            Console.Write("------------------------------------");
+            Console.WriteLine("------------------------------------");
             string input = Console.ReadLine();
-            Console.WriteLine(input + " = " + Calculator.Evaluate(input));
+            double result = Calculator.Evaluate(input);
+            Console.WriteLine(input + " = " + result);
         }
     }
 }

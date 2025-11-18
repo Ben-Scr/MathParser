@@ -9,6 +9,7 @@ namespace BenScr.Math.Parser
         {
             return ParserRuntime.Run(calculation, evaluator).To<double>();
         }
+
         public static T Evaluate<T>(string calculation)
         {
             return ParserRuntime.Run(calculation, evaluator).To<T>();

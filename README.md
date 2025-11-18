@@ -14,7 +14,12 @@ using BenScr.Math.Parser;
 
 - Option 1 - Simple
 ```csharp
-string result = Calculator.Evaluate<string>("20 + 100 / 2 * 4^2");
+// Variant 1- Default
+double result = Calculator.Evaluate("20 + 100 / 2 * 4^2");
+Console.WriteLine(result); // Output: 820
+
+// Variant 2 - Custom Type
+int result = Calculator.Evaluate<int>("20 + 100 / 2 * 4^2");
 Console.WriteLine(result); // Output: 820
 ```
 

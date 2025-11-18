@@ -7,17 +7,18 @@ A Mathemactical C# `Net 9.0` Parser
 - Using and Setting predefined functions such as `sin()`, `cos()`, `sqrt()`, ...
 
 ## How to use
+Namespace
 ```csharp
 using BenScr.Math.Parser;
 ```
 
-- Option 1
+- Option 1 - Simple
 ```csharp
 string result = Calculator.Evaluate<string>("20 + 100 / 2 * 4^2");
 Console.WriteLine(result); // Output: 820
 ```
 
-- Option 2 (configurable)
+- Option 2 - Configurable
 ```csharp
 Evaluator evaluator = new Evaluator();
 

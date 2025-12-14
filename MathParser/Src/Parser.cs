@@ -132,6 +132,7 @@ namespace BenScr.Math.Parser
                 Parser parser = new Parser(tokens);
                 Expr expr = parser.ParseExpression();
                 Value result = ev.EvalToValue(expr);
+                ev.SetVar("ans", result);
                 return result;
             }
             catch(Exception e)

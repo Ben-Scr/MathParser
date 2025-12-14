@@ -26,12 +26,15 @@ namespace BenScr.Math.Parser
         public void DefineDefaultFunctions()
         {
             SetVar("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
+
+            Define("clear", a => { Console.Clear(); return new Value("Calculator"); });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
             Define("exit", a => { Environment.Exit(0); return Value.Null; });
         }
 
         public void DefineMathematicalFunctions()
         {
+            SetVar("ans", new Value(0));
             SetVar("π", new Value(System.Math.PI));
             SetVar("pi", new Value(System.Math.PI));
             SetVar("e", new Value(System.Math.E));

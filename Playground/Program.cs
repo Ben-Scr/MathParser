@@ -2,11 +2,12 @@
 
 public static class Program
 {
-    const string Prefix = "->";
+    const string Prefix = $"ParserPlayground.exe>";
 
     public static void Main(string[] args)
     {
         Console.WriteLine("Calculator");
+        Console.WriteLine("----------");
 
         while (true)
         {

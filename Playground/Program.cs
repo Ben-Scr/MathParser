@@ -2,16 +2,18 @@
 
 public static class Program
 {
-    const string Prefix = $"ParserPlayground.exe>";
+    static string Prefix = $"ParserPlayground.exe>";
 
     public static void Main(string[] args)
     {
         Console.WriteLine("Calculator");
         Console.WriteLine("----------");
 
+        Prefix = Environment.UserName + ">";
+
         while (true)
         {
-            Console.Write($"{Prefix} ");              // Prompt anzeigen
+            Console.Write($"{Prefix} ");
             string input = Console.ReadLine();
 
             string result = Calculator.Evaluate<string>(input);

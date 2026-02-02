@@ -13,14 +13,14 @@ namespace BenScr.Math.Parser
                 char c = source[i];
                 if (char.IsWhiteSpace(c)) { i++; continue; }
 
-                if (char.IsDigit(c) || ((c == '.' || c == ',') && i + 1 < source.Length && char.IsDigit(source[i + 1])))
+                if (char.IsDigit(c) || (c == '.' && i + 1 < source.Length && char.IsDigit(source[i + 1])))
                 {
                     int start = i;
                     bool dot = false;
                     while (i < source.Length)
                     {
                         char d = source[i];
-                        if (d == '.' || d == ',')
+                        if (d == '.')
                         {
                             if (dot) break;
                             dot = true;

@@ -3,6 +3,7 @@
 public static class Program
 {
     static string Prefix = $"ParserPlayground.exe>";
+    const bool DisplayNextLine = true;
 
     public static void Main(string[] args)
     {
@@ -17,12 +18,20 @@ public static class Program
             string input = Console.ReadLine();
 
             string result = Calculator.Evaluate<string>(input);
+            string output = $"{Prefix} {input} = {result}";
 
-            Console.CursorTop = Math.Clamp(Console.CursorTop - 1, 0, int.MaxValue);
-            Console.Write($"{Prefix} {input} = {result}");
+            if (!DisplayNextLine)
+            {
+                Console.CursorTop = Math.Max(Console.CursorTop - 1, 0);
+                Console.Write(output);
 
-            Console.CursorLeft = 0;
-            Console.CursorTop = Math.Clamp(Console.CursorTop + 1, 0, int.MaxValue);
+                Console.CursorLeft = 0;
+                Console.CursorTop = Math.Max(Console.CursorTop + 1, 0);
+            }
+            else
+            {
+                Console.WriteLine(output);
+            }
         }
     }
 }

@@ -128,7 +128,6 @@ namespace BenScr.Math.Parser
         {
             try
             {
-                src = src.Replace(',', '.');
                 List<Token> tokens = Lexer.BuildTokens(src);
                 Parser parser = new Parser(tokens);
                 Expr expr = parser.ParseExpression();

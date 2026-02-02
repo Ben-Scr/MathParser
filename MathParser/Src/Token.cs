@@ -30,6 +30,9 @@ namespace BenScr.Math.Parser
             Type = type;
             Lexeme = lexeme;
             Pos = pos;
+
+            if(Type == TokenType.Number)
+                Lexeme = lexeme.Replace(',', '.');
         }
 
         public override string ToString() => $"{Type}:{Lexeme}";

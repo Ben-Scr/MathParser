@@ -6,26 +6,39 @@ namespace BenScr.Math.Parser
         private readonly Dictionary<string, Func<Value[], Value>> funcs = new();
         private readonly Dictionary<string, Value> vars = new();
 
-        public void Define(string name, Func<Value[], Value> f) => funcs[name] = f; 
-        public void SetVar(string name, Value value) => vars[name] = value;
+        public void Define(string name, Func<Value[], Value> f) => funcs[name] = f;
+        public void SetVariable(string name, Value value) => vars[name] = value;
 
         public Evaluator()
         {
-
+            DefineDefaultFunctions();
         }
+
+        /// <summary>
+        /// Returns all defined variables
+        /// </summary>
+        public Dictionary<string, Value> GetVariables() => vars;
+
+        /// <summary>
+        /// Returns all defined functions
+        /// </summary>
+        public Dictionary<string, Func<Value[], Value>> GetFunctions() => funcs;
+
 
         public static Evaluator Calculator()
         {
             Evaluator ev = new Evaluator();
 
+            ev.DefineDefaultFunctions();
             ev.DefineArithmetikOperations();
             ev.DefineMathematicalFunctions();
 
             return ev;
         }
+
         public void DefineDefaultFunctions()
         {
-            SetVar("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
+            SetVariable("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
             Define("clear", a => { Console.Clear(); return new Value("Calculator"); });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
             Define("exit", a => { Environment.Exit(0); return Value.Null; });
@@ -33,10 +46,10 @@ namespace BenScr.Math.Parser
 
         public void DefineMathematicalFunctions()
         {
-            SetVar("ans", new Value(0));
-            SetVar("π", new Value(System.Math.PI));
-            SetVar("pi", new Value(System.Math.PI));
-            SetVar("e", new Value(System.Math.E));
+            SetVariable("ans", new Value(0));
+            SetVariable("π", new Value(System.Math.PI));
+            SetVariable("pi", new Value(System.Math.PI));
+            SetVariable("e", new Value(System.Math.E));
 
             Define("max", a => new Value(MathHelper.Max(a.Select(value => value.To<float>()).ToArray())));
             Define("min", a => new Value(MathHelper.Min(a.Select(value => value.To<float>()).ToArray())));
@@ -82,6 +95,7 @@ namespace BenScr.Math.Parser
             CallExpr c => Invoke(c.CallName, c.Args.Select(EvalToValue).ToArray()),
             _ => throw new Exception("Not evaluable")
         };
+
         private Value Invoke(string name, params Value[] args)
         {
             if (!funcs.TryGetValue(name, out var f))

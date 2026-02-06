@@ -15,7 +15,7 @@ namespace BenScr.Math.Parser
         Token Peek() => tokens[pos];
         Token Next() => tokens[pos++];
         bool Match(TokenType tt) { if (Peek().Type == tt) { pos++; return true; } return false; }
-        Token Expect(TokenType tt) { var x = Next(); if (x.Type != tt) throw new Exception($"Expected \"{tt}\" at \"{x.Pos}\""); return x; }
+        Token Expect(TokenType tt) { var x = Next(); if (x.Type != tt) throw new Exception($"Expected ({tt}) at ({x.Pos})"); return x; }
 
         // Note: rbp (right binding power) directs the calculation order/priority.
         public Expr ParseExpression(int rbp = 0)
@@ -38,14 +38,14 @@ namespace BenScr.Math.Parser
         {
             return tok.Type switch
             {
-                TokenType.Number => new NumberExpr(double.Parse(tok.Lexeme, CultureInfo.InvariantCulture)),
+                TokenType.Number => new NumberExpr(double.Parse(tok.Lexeme.Replace(',', '.'), CultureInfo.InvariantCulture)),
                 TokenType.Ident => ParseIdentOrCall(tok),
                 TokenType.LParen => ParseGrouping(),
                 TokenType.Plus => new UnaryExpr(TokenType.Plus, ParseExpression(70)),
                 TokenType.Minus => new UnaryExpr(TokenType.Minus, ParseExpression(70)),
                 TokenType.Sqrt => new UnaryExpr(TokenType.Sqrt, ParseExpression(70)),
                 TokenType.String => new StringExpr(tok.Lexeme),
-                _ => throw new Exception($"Unexpected Token \"{tok.Type}\" at \"{tok.Pos}\"")
+                _ => throw new Exception($"Unexpected Token ({tok.Type}) at ({tok.Pos})")
             };
         }
 
@@ -67,7 +67,7 @@ namespace BenScr.Math.Parser
                     {
                         args.Add(ParseExpression());
                         if (Match(TokenType.RParen)) break;
-                        Expect(TokenType.Comma);
+                        Expect(TokenType.Seperator);
                     }
                 }
                 return new CallExpr(ident.Lexeme, args);
@@ -85,6 +85,9 @@ namespace BenScr.Math.Parser
         {
             switch (t)
             {
+                case TokenType.Currency:
+                    return 80;
+
                 case TokenType.Plus:
                 case TokenType.Minus:
                     return 10;
@@ -106,6 +109,8 @@ namespace BenScr.Math.Parser
         {
             switch (tok.Type)
             {
+                case TokenType.Currency:
+                    return new MoneyExpr(left, tok.Lexeme);
                 case TokenType.Plus:
                     return new BinaryExpr(TokenType.Plus, left, ParseExpression(10));
                 case TokenType.Minus:

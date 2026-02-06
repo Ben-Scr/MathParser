@@ -3,20 +3,13 @@ using System.Diagnostics;
 
 public static class Program
 {
-    static string Prefix = $"ParserPlayground.exe>";
-    const bool DisplayNextLine = true;
+    private static string Prefix = Environment.UserName + ">";
+    private static bool DisplayNextLine = true;
 
     public static void Main(string[] args)
     {
-        foreach(var p in Process.GetProcesses())
-        {
-            Console.WriteLine($"{p.ProcessName}");
-        }
-
         Console.WriteLine("Calculator");
         Console.WriteLine("----------");
-
-        Prefix = Environment.UserName + ">";
 
         while (true)
         {

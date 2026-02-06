@@ -34,12 +34,12 @@ namespace BenScr.Math.Parser
         Caret,
 
         /// <summary>
-        /// Multiplication operator *
+        /// Multiplication operator * or x
         /// </summary>
         Star,
 
         /// <summary>
-        /// Division operator /
+        /// Division operator / or :
         /// </summary>
         Slash,
 
@@ -59,14 +59,19 @@ namespace BenScr.Math.Parser
         RParen,
 
         /// <summary>
-        /// Comma separator 1.0
+        /// Separator for function arguments ;.
         /// </summary>
-        Comma,
+        Seperator,
 
         /// <summary>
         /// Sqrt operator √
         /// </summary>
         Sqrt,
+
+        /// <summary>
+        /// Indicates wether it's a currency f.x. $, €
+        /// </summary>
+        Currency,
 
         /// <summary>
         /// Indicates the end of the input 

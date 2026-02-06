@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<PackageId>MathParserCS</PackageId>
-		<Version>1.0.5</Version>
+		<Version>1.0.6</Version>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Authors>Ben Schneider</Authors>
 		<Company>Ben Schneider</Company>
-		<Description>A mathemactical C# Parser, parsing input such as "20 + 100 / 2 * 4^2" -> 820.</Description>
+		<Description>A Mathemactical C# Parser, parsing input such as "20 + 100 / 2 * 4^2" -> 820.</Description>
 
 		<PackageProjectUrl>https://github.com/Ben-Scr/MathParser</PackageProjectUrl>
 		<RepositoryUrl>https://ko-fi.com/benscr</RepositoryUrl>

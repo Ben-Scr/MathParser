@@ -117,7 +117,7 @@ namespace BenScr.Math.Parser
                 case TokenType.Caret:
                     return new BinaryExpr(TokenType.Caret, left, ParseExpression(29));
                 default:
-                    throw new Exception($"Unexpected Operator \"{tok.Type}\" at \"{tok.Pos}\"");
+                    throw new Exception($"Unexpected Operator ({tok.Type}) at ({tok.Pos})");
             }
         }
     }

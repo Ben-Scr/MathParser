@@ -1,4 +1,5 @@
 ﻿using BenScr.Math.Parser;
+using System.Diagnostics;
 
 public static class Program
 {
@@ -7,6 +8,11 @@ public static class Program
 
     public static void Main(string[] args)
     {
+        foreach(var p in Process.GetProcesses())
+        {
+            Console.WriteLine($"{p.ProcessName}");
+        }
+
         Console.WriteLine("Calculator");
         Console.WriteLine("----------");
 

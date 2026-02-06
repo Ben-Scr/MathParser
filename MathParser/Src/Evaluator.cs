@@ -26,7 +26,6 @@ namespace BenScr.Math.Parser
         public void DefineDefaultFunctions()
         {
             SetVar("app", new Value(Path.GetFullPath("ParserPlayground.exe")));
-
             Define("clear", a => { Console.Clear(); return new Value("Calculator"); });
             Define("quit", a => { Environment.Exit(0); return Value.Null; });
             Define("exit", a => { Environment.Exit(0); return Value.Null; });
@@ -86,9 +85,7 @@ namespace BenScr.Math.Parser
         private Value Invoke(string name, params Value[] args)
         {
             if (!funcs.TryGetValue(name, out var f))
-            {
                 throw new Exception($"Unknown function \"{name}({string.Join(", ", args.Select(a => a))})\"");
-            }
 
             return f(args);
         }

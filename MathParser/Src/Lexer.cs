@@ -16,9 +16,15 @@ namespace BenScr.Math.Parser
             int i = 0;
             while (i < source.Length)
             {
-                bool isCurrency = false;
                 char c = source[i];
                 if (char.IsWhiteSpace(c)) { i++; continue; }
+
+                if (Currencies.Contains(c))
+                {
+                    tokens.Add(new Token(TokenType.Currency, c.ToString(), i));
+                    i++;
+                    continue;
+                }
 
                 if (char.IsDigit(c) || (c == FloatingPointSeparator && i + 1 < source.Length && char.IsDigit(source[i + 1])))
                 {
@@ -34,19 +40,16 @@ namespace BenScr.Math.Parser
                             i++;
                         }
                         else if (char.IsDigit(d)) i++;
-                        else if (Currencies.Contains(d))
-                        {
-                            i++;
-                            isCurrency = true;
-                            break;
-                        }
                         else break;
                     }
 
-                    if (isCurrency)
-                        tokens.Add(new Token(TokenType.Currency, source.Substring(start, i - start), start));
-                    else
-                        tokens.Add(new Token(TokenType.Number, source.Substring(start, i - start), start));
+                    tokens.Add(new Token(TokenType.Number, source.Substring(start, i - start), start));
+
+                    if (i < source.Length && Currencies.Contains(source[i]))
+                    {
+                        tokens.Add(new Token(TokenType.Currency, source[i].ToString(), i));
+                        i++;
+                    }
 
                     continue;
                 }

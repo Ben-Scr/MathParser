@@ -82,6 +82,8 @@ namespace BenScr.Math.Parser
             StringExpr s => new Value(s.Value),
             VarExpr v => vars.TryGetValue(v.Name, out var vv) ? vv : throw new Exception($"Unknown variable \"{v.Name}\""),
 
+            MoneyExpr m =>EvalCurrency(m),
+
             UnaryExpr u when u.Op == TokenType.Minus => Invoke("neg", EvalToValue(u.Right)),
             UnaryExpr u when u.Op == TokenType.Plus => Invoke("pos", EvalToValue(u.Right)),
             UnaryExpr u when u.Op == TokenType.Sqrt => Invoke("√", EvalToValue(u.Right)),
@@ -96,12 +98,61 @@ namespace BenScr.Math.Parser
             _ => throw new Exception("Not evaluable")
         };
 
+        private Value EvalCurrency(MoneyExpr expr)
+        {
+            var left = EvalToValue(expr.Left);
+
+            if (left.Object is CurrencyAmount currency)
+                return new Value(currency with { Symbol = expr.Lexeme });
+
+            return new Value(new CurrencyAmount(left.To<double>(), expr.Lexeme));
+        }
+
+        private static string? GetCurrencySymbol(params Value[] values)
+        {
+            foreach (Value value in values)
+            {
+                if (value.Object is CurrencyAmount currency)
+                    return currency.Symbol;
+            }
+
+            return null;
+        }
+
         private Value Invoke(string name, params Value[] args)
         {
             if (!funcs.TryGetValue(name, out var f))
                 throw new Exception($"Unknown function \"{name}({string.Join(", ", args.Select(a => a))})\"");
 
-            return f(args);
+            Value result = f(args);
+
+            string? symbol = GetCurrencySymbol(args);
+            if (symbol == null)
+                return result;
+
+            if (result.Object is CurrencyAmount currency)
+                return new Value(currency with { Symbol = symbol });
+
+            if (result.Object != null && IsNumericType(result.Object.GetType()))
+                return new Value(new CurrencyAmount(result.To<double>(), symbol));
+
+            return result;
+        }
+
+        private static bool IsNumericType(Type type)
+        {
+            TypeCode typeCode = Type.GetTypeCode(type);
+            return typeCode == TypeCode.Byte
+                || typeCode == TypeCode.SByte
+                || typeCode == TypeCode.UInt16
+                || typeCode == TypeCode.UInt32
+                || typeCode == TypeCode.UInt64
+                || typeCode == TypeCode.Int16
+                || typeCode == TypeCode.Int32
+                || typeCode == TypeCode.Int64
+                || typeCode == TypeCode.Decimal
+                || typeCode == TypeCode.Double
+                || typeCode == TypeCode.Single;
         }
     }
 }

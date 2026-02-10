@@ -1,5 +1,6 @@
 ﻿using BenScr.Math.Parser;
 using System.Diagnostics;
+using System.Text;
 
 public static class Program
 {
@@ -10,6 +11,8 @@ public static class Program
     {
         Console.WriteLine("Calculator");
         Console.WriteLine("----------");
+        Console.InputEncoding = Encoding.UTF8;
+        Console.OutputEncoding = Encoding.UTF8;
 
         while (true)
         {

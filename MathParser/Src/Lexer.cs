@@ -7,12 +7,15 @@ namespace BenScr.Math.Parser
         /// Floating point separator character, used when parsing numbers.
         /// </summary>
         public static char FloatingPointSeparator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+        public static char OppositeFloatingPointSeparator => FloatingPointSeparator == ',' ? '.' : ',';
+
         public static HashSet<char> Currencies = new HashSet<char>() { '€', '$' };
 
         public static List<Token> BuildTokens(string source)
         {
             List<Token> tokens = new List<Token>();
 
+            source = source.Replace(OppositeFloatingPointSeparator.ToString(), "");
             int i = 0;
             while (i < source.Length)
             {

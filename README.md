@@ -3,7 +3,7 @@ A Mathemactical C# `Net 9.0` Parser
 
 ## Features
 - Parsing expressions such as `"1 + 5"` = `6` or `"pow(4;2)"` = `16`
-- Calculating with currencies `2$ + 5$` = `7.00$`
+- Calculation with currencies `2$ + 5$` = `7.00$`
 - Localized Floating Point Seperators
 - Using and Setting predefined variables like `pi` or `e`
 - Using and Setting predefined functions such as `sin()`, `cos()`, `sqrt()`, ...

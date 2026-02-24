@@ -42,4 +42,4 @@ Console.WriteLine(value); // Output: 820
 ## Example Calculations
 
 ## Example Project
-An example Project using this Parser is [`AdvancedCalculator`](https://github.com/Ben-Scr/AdvancedCalculator)
+An example Project using this Parser is [`Smartcalculator`](https://github.com/Ben-Scr/SmartCalculator)

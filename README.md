@@ -1,5 +1,5 @@
 # Math Parser
-A Mathemactical C# `Net 9.0` Parser
+Mathemactical C# `Net 9.0` Parser
 
 ## Features
 - Parsing expressions such as `"1 + 5"` = `6` or `"pow(4;2)"` = `16`

@@ -16,6 +16,7 @@ namespace BenScr.Math.Parser
         Token Next() => tokens[pos++];
         bool Match(TokenType tt) { if (Peek().Type == tt) { pos++; return true; } return false; }
         Token Expect(TokenType tt) { var x = Next(); if (x.Type != tt) throw new Exception($"Expected ({tt}) at ({x.Pos})"); return x; }
+        public void ExpectEndOfInput() => Expect(TokenType.EOF);
 
         // Note: rbp (right binding power) directs the calculation order/priority.
         public Expr ParseExpression(int rbp = 0)
@@ -67,7 +68,7 @@ namespace BenScr.Math.Parser
                     {
                         args.Add(ParseExpression());
                         if (Match(TokenType.RParen)) break;
-                        Expect(TokenType.Seperator);
+                        Expect(TokenType.Separator);
                     }
                 }
                 return new CallExpr(ident.Lexeme, args);
@@ -93,6 +94,7 @@ namespace BenScr.Math.Parser
                     return 10;
                 case TokenType.Star:
                 case TokenType.Slash:
+                case TokenType.Modulo:
                     return 20;
                 case TokenType.Caret:
                     return 30;
@@ -119,30 +121,12 @@ namespace BenScr.Math.Parser
                     return new BinaryExpr(TokenType.Star, left, ParseExpression(20));
                 case TokenType.Slash:
                     return new BinaryExpr(TokenType.Slash, left, ParseExpression(20));
+                case TokenType.Modulo:
+                    return new BinaryExpr(TokenType.Modulo, left, ParseExpression(20));
                 case TokenType.Caret:
                     return new BinaryExpr(TokenType.Caret, left, ParseExpression(29));
                 default:
                     throw new Exception($"Unexpected Operator ({tok.Type}) at ({tok.Pos})");
-            }
-        }
-    }
-
-    public static class ParserRuntime
-    {
-        public static Value Run(string src, Evaluator ev)
-        {
-            try
-            {
-                List<Token> tokens = Lexer.BuildTokens(src);
-                Parser parser = new Parser(tokens);
-                Expr expr = parser.ParseExpression();
-                Value result = ev.EvalToValue(expr);
-                ev.SetVariable("ans", result);
-                return result;
-            }
-            catch(Exception e)
-            {
-                return new Value("Error: " + e.Message);
             }
         }
     }

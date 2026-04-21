@@ -1,60 +1,33 @@
 ﻿
 namespace BenScr.Math.Parser
 {
-    internal class MathHelper
+    internal static class MathHelper
     {
-        public static int Max(params int[] values)
+        public static double Max(params double[] values)
         {
-            int max = int.MinValue;
+            if (values.Length == 0)
+                throw new ArgumentException("At least one value is required.", nameof(values));
 
-            foreach (var item in values)
+            double max = values[0];
+            for (int i = 1; i < values.Length; i++)
             {
-                if (item > max)
-                {
-                    max = item;
-                }
+                if (values[i] > max)
+                    max = values[i];
             }
 
             return max;
         }
-        public static float Max(params float[] values)
+
+        public static double Min(params double[] values)
         {
-            float max = float.MinValue;
+            if (values.Length == 0)
+                throw new ArgumentException("At least one value is required.", nameof(values));
 
-            foreach (var item in values)
+            double min = values[0];
+            for (int i = 1; i < values.Length; i++)
             {
-                if (item > max)
-                {
-                    max = item;
-                }
-            }
-
-            return max;
-        }
-        public static int Min(params int[] values)
-        {
-            int min = int.MaxValue;
-
-            foreach (var item in values)
-            {
-                if (item < min)
-                {
-                    min = item;
-                }
-            }
-
-            return min;
-        }
-        public static float Min(params float[] values)
-        {
-            float min = float.MaxValue;
-
-            foreach (var item in values)
-            {
-                if (item < min)
-                {
-                    min = item;
-                }
+                if (values[i] < min)
+                    min = values[i];
             }
 
             return min;

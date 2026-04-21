@@ -1,39 +1,64 @@
-﻿using BenScr.Math.Parser;
-using System.Diagnostics;
+using BenScr.Math.Parser;
 using System.Text;
 
 public static class Program
 {
-    private static string Prefix = Environment.UserName + ">";
-    private static bool DisplayNextLine = true;
+    private static readonly string Prefix = Environment.UserName + ">";
 
     public static void Main(string[] args)
     {
-        Console.WriteLine("Calculator");
-        Console.WriteLine("----------");
+        Evaluator evaluator = Evaluator.CreateCalculator();
+
         Console.InputEncoding = Encoding.UTF8;
         Console.OutputEncoding = Encoding.UTF8;
+        WriteHeader();
 
         while (true)
         {
             Console.Write($"{Prefix} ");
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
+            if (input == null)
+                break;
 
-            string result = Calculator.Evaluate<string>(input);
-            string output = $"{Prefix} {input} = {result}";
+            input = input.Trim();
+            if (input.Length == 0)
+                continue;
 
-            if (!DisplayNextLine)
+            if (TryHandleCommand(input, out bool shouldExit))
             {
-                Console.CursorTop = Math.Max(Console.CursorTop - 1, 0);
-                Console.Write(output);
+                if (shouldExit)
+                    return;
 
-                Console.CursorLeft = 0;
-                Console.CursorTop = Math.Max(Console.CursorTop + 1, 0);
+                continue;
             }
-            else
-            {
-                Console.WriteLine(output);
-            }
+
+            Value result = ParserRuntime.Run(input, evaluator);
+            Console.WriteLine($"{Prefix} {input} = {result}");
         }
+    }
+
+    private static bool TryHandleCommand(string input, out bool shouldExit)
+    {
+        shouldExit = false;
+
+        switch (input.ToLowerInvariant())
+        {
+            case "clear":
+                Console.Clear();
+                WriteHeader();
+                return true;
+            case "quit":
+            case "exit":
+                shouldExit = true;
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private static void WriteHeader()
+    {
+        Console.WriteLine("Calculator");
+        Console.WriteLine("----------");
     }
 }

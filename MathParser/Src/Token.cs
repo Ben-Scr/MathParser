@@ -14,7 +14,7 @@ namespace BenScr.Math.Parser
         String,
 
         /// <summary>
-        /// A 
+        /// An identifier such as a variable or function name
         /// </summary>
         Ident,
 
@@ -64,12 +64,17 @@ namespace BenScr.Math.Parser
         Seperator,
 
         /// <summary>
+        /// Separator for function arguments ;.
+        /// </summary>
+        Separator = Seperator,
+
+        /// <summary>
         /// Sqrt operator √
         /// </summary>
         Sqrt,
 
         /// <summary>
-        /// Indicates wether it's a currency f.x. $, €
+        /// Indicates whether a value uses a currency symbol like $, €
         /// </summary>
         Currency,
 

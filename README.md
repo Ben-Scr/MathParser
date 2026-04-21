@@ -1,45 +1,83 @@
-# Math Parser
-A Mathemactical C# `Net 9.0` Parser
+# MathParser
+
+A small C# math parser for expressions like `20 + 100 / 2 * 4^2`.
 
 ## Features
-- Parsing expressions such as `"1 + 5"` = `6` or `"pow(4;2)"` = `16`
-- Calculation with currencies `2$ + 5$` = `7.00$`
-- Localized Floating Point Seperators
-- Using and Setting predefined variables like `pi` or `e`
-- Using and Setting predefined functions such as `sin()`, `cos()`, `sqrt()`, ...
 
-## How to use
-Namespace
+- Parses arithmetic expressions with operator precedence
+- Supports functions like `pow`, `sin`, `cos`, `sqrt`, `clamp`
+- Supports predefined variables like `pi`, `π`, `e`, and `ans`
+- Supports currency expressions like `2$ + 5$`
+- Accepts localized decimal separators such as `1,5` and `1.5`
+- Offers a simple stateless API and a configurable evaluator API
+
+## Installation
+
+```bash
+dotnet add package MathParserCS
+```
+
+## Simple Usage
+
 ```csharp
 using BenScr.Math.Parser;
-```
 
-- Option 1 - Simple
-```csharp
-// Variant 1- Default
 double result = Calculator.Evaluate("20 + 100 / 2 * 4^2");
-Console.WriteLine(result); // Output: 820
+Console.WriteLine(result); // 820
 
-// Variant 2 - Custom Type
-string result = Calculator.Evaluate<string>("20 + 100 / 2 * 4^2");
-Console.WriteLine(result); // Output: 820
+string currency = Calculator.Evaluate<string>("2$ + 5$");
+Console.WriteLine(currency); // 7.00$ / 7,00$ depending on culture
 ```
 
-- Option 2 - Configurable
+`Calculator` is stateless, so each call is independent.
+
+## Configurable Usage
+
 ```csharp
-Evaluator evaluator = new Evaluator();
+using BenScr.Math.Parser;
 
-// Defines +, -, /, *, ^, ...
-evaluator.DefineArithmetikOperations();
+Evaluator evaluator = Evaluator.CreateCalculator();
 
-// Defines sin(), cos(), sqrt(), ...
-evaluator.DefineMathematicalFunctions();
-
-Value value = ParserRuntime.Run("20 + 100 / 2 * 4^2", evaluator);
-Console.WriteLine(value); // Output: 820
+if (ParserRuntime.TryRun("pow(4;2) + ans", evaluator, out Value value, out string? error))
+{
+    Console.WriteLine(value);
+}
+else
+{
+    Console.WriteLine(error);
+}
 ```
 
-## Example Calculations
+Use a shared `Evaluator` when you want session-style behavior like `ans`.
 
-## Example Project
-An example Project using this Parser is [`Smartcalculator`](https://github.com/Ben-Scr/SmartCalculator)
+## Supported Built-ins
+
+- Variables: `ans`, `pi`, `π`, `e`
+- Operators: `+`, `-`, `*`, `/`, `%`, `^`, unary `+`, unary `-`, `√`
+- Functions: `max`, `min`, `pow`, `sin`, `cos`, `tan`, `log`, `abs`, `atan`, `atan2`, `clamp`, `sqrt`
+
+Function arguments are separated with `;`, for example `pow(2;8)`.
+
+## Error Handling
+
+```csharp
+using BenScr.Math.Parser;
+
+Evaluator evaluator = Evaluator.CreateCalculator();
+Value value = ParserRuntime.Run("1 +", evaluator);
+Console.WriteLine(value); // Error: ...
+```
+
+If you prefer exceptions, use `ParserRuntime.RunOrThrow(...)`.
+
+## Example Expressions
+
+- `1 + 5` -> `6`
+- `pow(4;2)` -> `16`
+- `3 + 5 % 2` -> `4`
+- `2$ + 5$` -> `7.00$` / `7,00$`
+- `sqrt(81)` -> `9`
+
+## Playground
+
+The repository includes a small console playground in `Playground/Program.cs`.

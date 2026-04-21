@@ -13,9 +13,9 @@ namespace BenScr.Math.Parser
     // Utility Wrapper for the Object
     public readonly struct Value
     {
-        public object Object { get; }
+        public object? Object { get; }
 
-        public Value(object obj = default) => Object = obj;
+        public Value(object? obj = null) => Object = obj;
 
         public static readonly Value Null = new Value(null);
 
@@ -29,7 +29,16 @@ namespace BenScr.Math.Parser
                 return (T)Convert.ChangeType(currency.Amount, typeof(T));
             }
 
-            return (T)Convert.ChangeType(Object, typeof(T));
+            if (Object == null)
+            {
+                Type targetType = typeof(T);
+                if (!targetType.IsValueType || Nullable.GetUnderlyingType(targetType) != null)
+                    return default!;
+
+                throw new InvalidCastException($"Cannot convert null to {targetType.Name}.");
+            }
+
+            return (T)Convert.ChangeType(Object, Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T));
         }
 
         public override string ToString()

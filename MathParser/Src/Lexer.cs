@@ -11,11 +11,15 @@ namespace BenScr.Math.Parser
 
         public static HashSet<char> Currencies = new HashSet<char>() { '€', '$' };
 
+        private static bool IsDecimalSeparator(char c)
+        {
+            return c == FloatingPointSeparator || c == OppositeFloatingPointSeparator;
+        }
+
         public static List<Token> BuildTokens(string source)
         {
             List<Token> tokens = new List<Token>();
 
-            source = source.Replace(OppositeFloatingPointSeparator.ToString(), "");
             int i = 0;
             while (i < source.Length)
             {
@@ -29,17 +33,17 @@ namespace BenScr.Math.Parser
                     continue;
                 }
 
-                if (char.IsDigit(c) || (c == FloatingPointSeparator && i + 1 < source.Length && char.IsDigit(source[i + 1])))
+                if (char.IsDigit(c) || (IsDecimalSeparator(c) && i + 1 < source.Length && char.IsDigit(source[i + 1])))
                 {
                     int start = i;
-                    bool dot = false;
+                    bool hasDecimalSeparator = false;
                     while (i < source.Length)
                     {
                         char d = source[i];
-                        if (d == FloatingPointSeparator)
+                        if (IsDecimalSeparator(d))
                         {
-                            if (dot) break;
-                            dot = true;
+                            if (hasDecimalSeparator) break;
+                            hasDecimalSeparator = true;
                             i++;
                         }
                         else if (char.IsDigit(d)) i++;
@@ -75,11 +79,8 @@ namespace BenScr.Math.Parser
                     while (i < source.Length && (char.IsLetterOrDigit(source[i]) || source[i] == '_')) i++;
 
                     string ident = source.Substring(start, i - start);
-                    if (ident.Length > 1)
-                    {
-                        tokens.Add(new Token(TokenType.Ident, ident, start));
-                        continue;
-                    }
+                    tokens.Add(new Token(TokenType.Ident, ident, start));
+                    continue;
                 }
 
                 switch (c)
@@ -92,7 +93,7 @@ namespace BenScr.Math.Parser
                     case '^': tokens.Add(new Token(TokenType.Caret, "^", i)); i++; break;
                     case '(': tokens.Add(new Token(TokenType.LParen, "(", i)); i++; break;
                     case ')': tokens.Add(new Token(TokenType.RParen, ")", i)); i++; break;
-                    case ';': tokens.Add(new Token(TokenType.Seperator, ";", i)); i++; break;
+                    case ';': tokens.Add(new Token(TokenType.Separator, ";", i)); i++; break;
                     case '√': tokens.Add(new Token(TokenType.Sqrt, "√", i)); i++; break;
                     default: throw new Exception($"Unexpected character ({c}) at string index ({i})");
                 }

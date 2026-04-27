@@ -11,54 +11,17 @@ public static class Program
 
         Console.InputEncoding = Encoding.UTF8;
         Console.OutputEncoding = Encoding.UTF8;
-        WriteHeader();
+
+        Console.WriteLine("Calculator");
+        Console.WriteLine("----------");
 
         while (true)
         {
             Console.Write($"{Prefix} ");
-            string? input = Console.ReadLine();
-            if (input == null)
-                break;
-
-            input = input.Trim();
-            if (input.Length == 0)
-                continue;
-
-            if (TryHandleCommand(input, out bool shouldExit))
-            {
-                if (shouldExit)
-                    return;
-
-                continue;
-            }
+            string input = Console.ReadLine();
 
             Value result = ParserRuntime.Run(input, evaluator);
             Console.WriteLine($"{Prefix} {input} = {result}");
         }
-    }
-
-    private static bool TryHandleCommand(string input, out bool shouldExit)
-    {
-        shouldExit = false;
-
-        switch (input.ToLowerInvariant())
-        {
-            case "clear":
-                Console.Clear();
-                WriteHeader();
-                return true;
-            case "quit":
-            case "exit":
-                shouldExit = true;
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private static void WriteHeader()
-    {
-        Console.WriteLine("Calculator");
-        Console.WriteLine("----------");
     }
 }

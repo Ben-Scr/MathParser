@@ -1,5 +1,5 @@
 ﻿
-namespace BenScr.Math.Parser
+namespace BenScr.MathParser
 {
     public static class Lexer
     {
@@ -98,6 +98,7 @@ namespace BenScr.Math.Parser
                     default: throw new Exception($"Unexpected character ({c}) at string index ({i})");
                 }
             }
+
             tokens.Add(new Token(TokenType.EOF, "", source.Length));
             return tokens;
         }

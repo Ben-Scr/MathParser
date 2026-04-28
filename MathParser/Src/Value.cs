@@ -1,5 +1,5 @@
 ﻿
-namespace BenScr.Math.Parser
+namespace BenScr.MathParser
 {
     public readonly record struct CurrencyAmount(double Amount, string Symbol)
     {

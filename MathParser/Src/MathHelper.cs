@@ -1,5 +1,5 @@
 ﻿
-namespace BenScr.Math.Parser
+namespace BenScr.MathParser
 {
     internal static class MathHelper
     {

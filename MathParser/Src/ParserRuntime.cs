@@ -1,11 +1,5 @@
-﻿using BenScr.Math.Parser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BenScr.Math.Parser
+﻿
+namespace BenScr.MathParser
 {
     public static class ParserRuntime
     {
